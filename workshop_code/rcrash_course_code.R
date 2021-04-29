@@ -14,7 +14,8 @@ library(psych)
 library(janitor)
 library(fastDummies)
 
-# Read in Data
+# Read in Data (make sure you're in the correct working directory)
+setwd("~/Documents/git_repositories/rcrashcourse/workshop_data")
 persson_tabellini_original<-read_csv("persson_tabellini_workshop.csv")
 
 # Make a copy of the dataset so we don't alter the original dataset; then, view
@@ -26,10 +27,13 @@ View(pt_copy)
 
 pt_copy_summarystats1<-describe(pt_copy)
 View(pt_copy_summarystats1)
+
+setwd("~/Documents/git_repositories/rcrashcourse/outputs")
 write.csv(pt_copy_summarystats1, "summarystats.csv")
 
 ## making a publishable summary statistics table 
 pt_copy_df<-as.data.frame(pt_copy)
+
 summary_stats_txt<-stargazer(pt_copy_df, type="text", title="Descriptive Statistics", 
                          digits=1, out="summary_stats.txt")
 
@@ -133,6 +137,7 @@ cgexp_viz1<-pt_copy %>%
        y="CGEXP")+
   theme(plot.title=element_text(hjust=0.5),
         axis.text.x = element_text(angle = 90))
+
 cgexp_viz1
 
 ##Visualization (bar chart) of cgexp (central government expenditure variable); coordinate
@@ -231,6 +236,8 @@ summary(trade_federal_interaction)
 
 ## Interpreting interaction term by computing marginal effects of "federal" variable,
 ## while holding "trade" at its mean
+
+mean(pt_copy$trade)
 
 marginal_effect_federalism<-ggpredict(trade_federal_interaction, terms="federal", condition=c(trade=78.76))
 marginal_effect_federalism
