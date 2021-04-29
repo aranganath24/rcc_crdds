@@ -2,7 +2,7 @@
 
 install.packages("tidyverse")
 install.packages("stargazer")
-install.packages("ggeffect")
+install.packages("ggeffects")
 install.packages("psych")
 install.packages("janitor")
 install.packages("fastDummies")
